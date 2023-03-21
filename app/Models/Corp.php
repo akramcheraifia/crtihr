@@ -5,13 +5,14 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class Filiere extends Model
+class Corp extends Model
 {
     use HasFactory;
-    protected $fillable = ['nom'];
-    public function corp()
+    protected $fillable = ['nom', 'filiere_id'];
+
+    public function filiere()
     {
-        return $this->hasMany(Corp::class);
+        return $this->belongsTo(Filiere::class);
     }
     public function employee()
     {

@@ -13,20 +13,21 @@ return new class extends Migration
     {
         Schema::create('employees', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('filieres_id')->constrained();
-            $table->foreignId('grades_id')->constrained();
-            $table->foreignId('corps_id')->constrained();
+            $table->foreignId('filiere_id')->constrained()->cascadeOnDelete();
+            $table->foreignId('corp_id')->constrained()->cascadeOnDelete();
+            $table->foreignId('grade_id')->constrained()->cascadeOnDelete();
             $table->string('nom');
             $table->string('prenom');
             $table->string('nom_ar');
             $table->string('prenom_ar');
             $table->char('NIN')->unique();
             $table->char('CNAS')->unique()->nullable();
-            $table->timestamp('date_naissance');
-            $table->timestamp('date_recrutement');
+            $table->date('date_naissance');
+            $table->date('date_recrutement');
             $table->string('lieu_naissance');
-            $table->boolean('sex');
+            $table->string('sexe');
             $table->string('situation_familiale');
+            $table->string('type_contrat');
             $table->char('CCP');
             $table->string('email')->unique()->nullable();
             $table->string('phone')->unique()->nullable();

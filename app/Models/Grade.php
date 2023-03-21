@@ -5,13 +5,13 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class Filiere extends Model
+class Grade extends Model
 {
     use HasFactory;
-    protected $fillable = ['nom'];
+    protected $fillable = ['nom', 'corp_id'];
     public function corp()
     {
-        return $this->hasMany(Corp::class);
+        return $this->belongsTo(Corp::class);
     }
     public function employee()
     {
