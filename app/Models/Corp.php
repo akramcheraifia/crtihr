@@ -18,4 +18,7 @@ class Corp extends Model
     {
         return $this->hasMany(Employee::class);
     }
+    public function grade() {
+        return $this->hasMany(Grade::class);
+    }
 }

@@ -4,7 +4,10 @@ namespace App\Filament\Resources;
 
 use App\Filament\Resources\EmployeeResource\Pages;
 use App\Filament\Resources\EmployeeResource\RelationManagers;
+use App\Models\Corp;
 use App\Models\Employee;
+use App\Models\Filiere;
+use App\Models\Grade;
 use Filament\Forms;
 use Filament\Forms\Components\Card;
 use Filament\Forms\Components\DatePicker;
@@ -18,6 +21,7 @@ use Filament\Tables\Columns\TextColumn;
 use Filament\Tables\Filters\SelectFilter;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\SoftDeletingScope;
+use PhpParser\Node\Stmt\Label;
 
 class EmployeeResource extends Resource
 {
@@ -32,11 +36,33 @@ class EmployeeResource extends Resource
             Card::make()
 ->schema([
     Select::make('filiere_id')
-->relationship('filiere', 'nom')->required(),
-Select::make('corp_id')
-->relationship('corp', 'nom')->required(),
-Select::make('grade_id')
-->relationship('grade', 'nom')->required(),
+       ->label('Filiere')
+       ->options(Filiere::all()->pluck('nom','id')->toArray())
+       ->reactive()
+       ->afterStateUpdated(fn (callable $set) => $set('corp_id',null)),
+    Select::make('corp_id')
+        ->label('Corp')
+        ->options(function (callable $get){
+            $filiere = Filiere::find($get('filiere_id'));
+            if (!$filiere) {
+                return Corp::all()->pluck('nom','id');
+            }
+            return $filiere->corp->pluck('nom','id');
+        })
+        ->reactive()
+       ->afterStateUpdated(fn (callable $set) => $set('grade_id',null)),
+
+       Select::make('grade_id')
+        ->label('Grade')
+        ->options(function (callable $get){
+            $corp = Corp::find($get('corp_id'));
+            if (!$corp) {
+                return Grade::all()->pluck('nom','id');
+            }
+            return $corp->grade->pluck('nom','id');
+        })
+        ->reactive(),
+
     TextInput::make('prenom')->required(),
     TextInput::make('nom')->required(),
     TextInput::make('prenom_ar')->required(),
