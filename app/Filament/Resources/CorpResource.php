@@ -22,6 +22,7 @@ class CorpResource extends Resource
     protected static ?string $model = Corp::class;
 
     protected static ?string $navigationIcon = 'heroicon-o-collection';
+    protected static ?string $navigationGroup = 'Structure';
 
     public static function form(Form $form): Form
     {

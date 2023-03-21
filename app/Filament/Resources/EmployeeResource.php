@@ -15,6 +15,7 @@ use Filament\Resources\Resource;
 use Filament\Resources\Table;
 use Filament\Tables;
 use Filament\Tables\Columns\TextColumn;
+use Filament\Tables\Filters\SelectFilter;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\SoftDeletingScope;
 
@@ -78,14 +79,17 @@ Select::make('grade_id')
                 TextColumn::make('id')->sortable(),
                 TextColumn::make('nom')->searchable()->sortable(),
                 TextColumn::make('prenom')->searchable()->sortable(),
-                TextColumn::make('filiere.nom')->sortable(),
-                TextColumn::make('corp.nom')->sortable(),
-                TextColumn::make('grade.nom')->sortable(),
+                TextColumn::make('filiere.nom')->sortable()->searchable(),
+                TextColumn::make('corp.nom')->sortable()->searchable(),
+                TextColumn::make('grade.nom')->sortable()->searchable(),
                 TextColumn::make('date_recrutement')->dateTime(),
                 TextColumn::make('created_at')->dateTime(),
             ])
             ->filters([
-                //
+                SelectFilter::make('filiere')->relationship('filiere', 'nom'),
+                SelectFilter::make('corp')->relationship('corp', 'nom'),
+                SelectFilter::make('grade')->relationship('grade', 'nom')
+
             ])
             ->actions([
                 Tables\Actions\EditAction::make(),
