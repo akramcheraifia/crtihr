@@ -132,6 +132,9 @@ class EmployeeResource extends Resource
             ->headerActions([
 
                 FilamentExportHeaderAction::make('export')
+                ->disableAdditionalColumns()
+                ->fileNameFieldLabel('Nom de fichier')
+                ->filterColumnsFieldLabel('Filtrer les colonnes')
 
             ]);
     }
@@ -157,7 +160,6 @@ protected function getTableHeaderActions(): array
     return [
 
         FilamentExportHeaderAction::make('Export'),
-
     ];
 }
 }
