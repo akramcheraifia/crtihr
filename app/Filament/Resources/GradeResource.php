@@ -24,6 +24,8 @@ class GradeResource extends Resource
     protected static ?string $navigationIcon = 'heroicon-o-collection';
     protected static ?string $navigationGroup = 'Structure';
 
+    protected static ?int $navigationSort =3;
+
 
     public static function form(Form $form): Form
     {
@@ -32,7 +34,8 @@ class GradeResource extends Resource
             Card::make()
 ->schema([
     Select::make('corp_id')
-->relationship('corp', 'nom'),
+->relationship('corp', 'nom')
+->required(),
     TextInput::make('nom')
 ])
         ]);
@@ -52,6 +55,7 @@ class GradeResource extends Resource
             ])
             ->actions([
                 Tables\Actions\EditAction::make(),
+                Tables\Actions\DeleteAction::make(),
             ])
             ->bulkActions([
                 Tables\Actions\DeleteBulkAction::make(),

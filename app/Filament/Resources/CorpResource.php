@@ -23,6 +23,8 @@ class CorpResource extends Resource
 
     protected static ?string $navigationIcon = 'heroicon-o-collection';
     protected static ?string $navigationGroup = 'Structure';
+    protected static ?int $navigationSort =2;
+
 
     public static function form(Form $form): Form
     {
@@ -33,6 +35,7 @@ class CorpResource extends Resource
         Select::make('filiere_id')
     ->relationship('filiere', 'nom')->required(),
         TextInput::make('nom')->required()
+        ->maxLength(255)
     ])
             ]);
     }
@@ -51,6 +54,7 @@ class CorpResource extends Resource
             ])
             ->actions([
                 Tables\Actions\EditAction::make(),
+                Tables\Actions\DeleteAction::make(),
             ])
             ->bulkActions([
                 Tables\Actions\DeleteBulkAction::make(),

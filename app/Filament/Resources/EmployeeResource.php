@@ -2,6 +2,8 @@
 
 namespace App\Filament\Resources;
 
+use AlperenErsoy\FilamentExport\Actions\FilamentExportBulkAction;
+use AlperenErsoy\FilamentExport\Actions\FilamentExportHeaderAction;
 use App\Filament\Resources\EmployeeResource\Pages;
 use App\Filament\Resources\EmployeeResource\RelationManagers;
 use App\Models\Corp;
@@ -39,6 +41,7 @@ class EmployeeResource extends Resource
        ->label('Filiere')
        ->options(Filiere::all()->pluck('nom','id')->toArray())
        ->reactive()
+       ->required()
        ->afterStateUpdated(fn (callable $set) => $set('corp_id',null)),
     Select::make('corp_id')
         ->label('Corp')
@@ -50,6 +53,7 @@ class EmployeeResource extends Resource
             return $filiere->corp->pluck('nom','id');
         })
         ->reactive()
+        ->required()
        ->afterStateUpdated(fn (callable $set) => $set('grade_id',null)),
 
        Select::make('grade_id')
@@ -61,17 +65,18 @@ class EmployeeResource extends Resource
             }
             return $corp->grade->pluck('nom','id');
         })
-        ->reactive(),
+        ->reactive()
+        ->required(),
 
-    TextInput::make('prenom')->required(),
-    TextInput::make('nom')->required(),
-    TextInput::make('prenom_ar')->required(),
-    TextInput::make('nom_ar')->required(),
-    TextInput::make('NIN')->required(),
-    TextInput::make('CNAS'),
+    TextInput::make('prenom')->required()->maxLength(255),
+    TextInput::make('nom')->required()->maxLength(255),
+    TextInput::make('prenom_ar')->required()->maxLength(255),
+    TextInput::make('nom_ar')->required()->maxLength(255),
+    TextInput::make('NIN')->required()->maxLength(20),
+    TextInput::make('CNAS')->maxLength(20),
     DatePicker::make('date_naissance')->required(),
     DatePicker::make('date_recrutement')->required(),
-    TextInput::make('lieu_naissance')->required(),
+    TextInput::make('lieu_naissance')->required()->maxLength(255),
     Select::make('sexe')
     ->options([
         'MALE' => 'Male',
@@ -90,9 +95,9 @@ class EmployeeResource extends Resource
         'CONTRACTUELLE' => 'CONTRACTUELLE',
         'STAGE' => 'STAGE',
     ])->required(),
-    TextInput::make('CCP')->required(),
-    TextInput::make('email')->required(),
-    TextInput::make('phone')->required(),
+    TextInput::make('RIB')->required()->maxLength(20),
+    TextInput::make('email')->required()->email(),
+    TextInput::make('phone')->required()->tel(),
 
 ])
         ]);
@@ -119,9 +124,15 @@ class EmployeeResource extends Resource
             ])
             ->actions([
                 Tables\Actions\EditAction::make(),
+                Tables\Actions\DeleteAction::make(),
             ])
             ->bulkActions([
                 Tables\Actions\DeleteBulkAction::make(),
+            ])
+            ->headerActions([
+
+                FilamentExportHeaderAction::make('export')
+
             ]);
     }
 
@@ -140,4 +151,13 @@ class EmployeeResource extends Resource
             'edit' => Pages\EditEmployee::route('/{record}/edit'),
         ];
     }
+
+protected function getTableHeaderActions(): array
+{
+    return [
+
+        FilamentExportHeaderAction::make('Export'),
+
+    ];
+}
 }

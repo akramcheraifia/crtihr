@@ -28,7 +28,7 @@ return new class extends Migration
             $table->string('sexe');
             $table->string('situation_familiale');
             $table->string('type_contrat');
-            $table->char('CCP');
+            $table->char('RIB');
             $table->string('email')->unique()->nullable();
             $table->string('phone')->unique()->nullable();
             $table->string('image')->nullable();

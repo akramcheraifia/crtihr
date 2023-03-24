@@ -22,6 +22,8 @@ class FiliereResource extends Resource
 
     protected static ?string $navigationIcon = 'heroicon-o-collection';
     protected static ?string $navigationGroup = 'Structure';
+    protected static ?int $navigationSort =1;
+
 
 
     public static function form(Form $form): Form
@@ -31,6 +33,7 @@ class FiliereResource extends Resource
                 Card::make()
     ->schema([
         TextInput::make('nom')
+        ->required(255)
     ])
 
             ]);
@@ -49,6 +52,7 @@ class FiliereResource extends Resource
             ])
             ->actions([
                 Tables\Actions\EditAction::make(),
+                Tables\Actions\DeleteAction::make(),
             ])
             ->bulkActions([
                 Tables\Actions\DeleteBulkAction::make(),
