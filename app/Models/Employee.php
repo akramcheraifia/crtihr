@@ -4,10 +4,13 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Support\InteractsWithTime;
+use Spatie\MediaLibrary\HasMedia;
+use Spatie\MediaLibrary\InteractsWithMedia;
 
-class Employee extends Model
+class Employee extends Model implements HasMedia
 {
-    use HasFactory;
+    use HasFactory , InteractsWithMedia;
     protected $fillable = ['nom', 'prenom', 'nom_ar', 'prenom_ar', 'NIN','CNAS', 'date_naissance', 'date_recrutement', 'lieu_naissance', 'sexe', 'situation_familiale','type_contrat', 'RIB', 'email', 'phone', 'image', 'filiere_id', 'corp_id', 'grade_id'];
 
     public function filiere()

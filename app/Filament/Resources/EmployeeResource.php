@@ -13,11 +13,13 @@ use Filament\Forms;
 use Filament\Forms\Components\Card;
 use Filament\Forms\Components\DatePicker;
 use Filament\Forms\Components\Select;
+use Filament\Forms\Components\SpatieMediaLibraryFileUpload;
 use Filament\Forms\Components\TextInput;
 use Filament\Resources\Form;
 use Filament\Resources\Resource;
 use Filament\Resources\Table;
 use Filament\Tables;
+use Filament\Tables\Columns\SpatieMediaLibraryImageColumn;
 use Filament\Tables\Columns\TextColumn;
 use Filament\Tables\Filters\SelectFilter;
 use Illuminate\Database\Eloquent\Builder;
@@ -97,6 +99,8 @@ class EmployeeResource extends Resource
     TextInput::make('RIB')->required()->maxLength(20),
     TextInput::make('email')->required()->email(),
     TextInput::make('phone')->required()->tel(),
+    SpatieMediaLibraryFileUpload::make('Photo')->collection('photos'),
+
 
 ])
         ]);
@@ -114,6 +118,8 @@ class EmployeeResource extends Resource
                 TextColumn::make('grade.nom')->sortable()->searchable(),
                 TextColumn::make('date_recrutement')->dateTime(),
                 TextColumn::make('created_at')->dateTime(),
+                SpatieMediaLibraryImageColumn::make('Photo')->collection('photos'),
+
             ])
             ->filters([
                 SelectFilter::make('filiere')->relationship('filiere', 'nom'),
