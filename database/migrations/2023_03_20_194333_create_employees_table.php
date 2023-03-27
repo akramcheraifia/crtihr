@@ -16,6 +16,7 @@ return new class extends Migration
             $table->foreignId('filiere_id')->constrained()->cascadeOnDelete();
             $table->foreignId('corp_id')->constrained()->cascadeOnDelete();
             $table->foreignId('grade_id')->constrained()->cascadeOnDelete();
+            $table->foreignId('site_id')->constrained()->cascadeOnDelete();
             $table->string('nom');
             $table->string('prenom');
             $table->string('nom_ar');
@@ -26,6 +27,7 @@ return new class extends Migration
             $table->date('date_recrutement');
             $table->string('lieu_naissance');
             $table->string('sexe');
+            $table->string('status');
             $table->string('situation_familiale');
             $table->string('type_contrat');
             $table->char('RIB');
