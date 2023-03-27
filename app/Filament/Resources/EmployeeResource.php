@@ -9,6 +9,7 @@ use App\Models\Corp;
 use App\Models\Employee;
 use App\Models\Filiere;
 use App\Models\Grade;
+use App\Models\Site;
 use Filament\Forms;
 use Filament\Forms\Components\Card;
 use Filament\Forms\Components\DatePicker;
@@ -68,16 +69,17 @@ class EmployeeResource extends Resource
         })
         ->reactive()
         ->required(),
-
+    Select::make('site_id')
+        ->relationship('site', 'nom')->required(),
     TextInput::make('prenom')->required()->maxLength(255),
     TextInput::make('nom')->required()->maxLength(255),
-    TextInput::make('prenom_ar')->required()->maxLength(255),
-    TextInput::make('nom_ar')->required()->maxLength(255),
-    TextInput::make('NIN')->required()->maxLength(20),
-    TextInput::make('CNAS')->maxLength(20),
-    DatePicker::make('date_naissance')->required(),
-    DatePicker::make('date_recrutement')->required(),
-    TextInput::make('lieu_naissance')->required()->maxLength(255),
+    TextInput::make('prenom_ar')->required()->maxLength(255)->label('Prenom Arabe'),
+    TextInput::make('nom_ar')->required()->maxLength(255)->label('Nom Arabe'),
+    TextInput::make('NIN')->required()->maxLength(20)->label('NIN'),
+    TextInput::make('CNAS')->maxLength(20)->label('CNAS'),
+    DatePicker::make('date_naissance')->required()->label('Date de naissance'),
+    DatePicker::make('date_recrutement')->required()->label('Date de recrutement'),
+    TextInput::make('lieu_naissance')->required()->maxLength(255)->label('Lieu de naissance'),
     Select::make('sexe')
     ->options([
         'MALE' => 'Male',
@@ -85,20 +87,26 @@ class EmployeeResource extends Resource
     ])->required(),
     Select::make('situation_familiale')
     ->options([
-        'MARIEE' => 'M',
-        'CELIBATAIRE' => 'C',
-        'VEUF' => 'V',
-        'DIVORCEE' => 'D',
+        'MARIEE' => 'Mariée',
+        'CELIBATAIRE' => 'Célibataire',
+        'VEUF' => 'Veuf',
+        'DIVORCEE' => 'Divorcée',
     ])->required(),
     Select::make('type_contrat')
     ->options([
-        'PERMANANTE' => 'PERMANANTE',
-        'CONTRACTUELLE' => 'CONTRACTUELLE',
-        'STAGE' => 'STAGE',
+        'Permanant' => 'Permanant',
+        'Contractuel' => 'Contractuel',
     ])->required(),
-    TextInput::make('RIB')->required()->maxLength(20),
+    Select::make('status')
+    ->options([
+        'active' => 'Active',
+        'Inactive' => 'Inactive',
+        'mis en disponibilité' => 'Mis en disponibilité',
+        'détacher' => 'Détacher',
+    ])->required(),
+    TextInput::make('RIB')->required()->maxLength(20)->label('RIB'),
     TextInput::make('email')->required()->email(),
-    TextInput::make('phone')->required()->tel(),
+    TextInput::make('phone')->required()->tel()->label('Numéro téléphone'),
     SpatieMediaLibraryFileUpload::make('Photo')->collection('photos'),
 
 
@@ -111,20 +119,23 @@ class EmployeeResource extends Resource
         return $table
             ->columns([
                 TextColumn::make('id')->sortable(),
+                SpatieMediaLibraryImageColumn::make('Photo')->collection('photos'),
                 TextColumn::make('nom')->searchable()->sortable(),
                 TextColumn::make('prenom')->searchable()->sortable(),
+                TextColumn::make('site.nom')->sortable()->searchable(),
                 TextColumn::make('filiere.nom')->sortable()->searchable(),
                 TextColumn::make('corp.nom')->sortable()->searchable(),
                 TextColumn::make('grade.nom')->sortable()->searchable(),
+                TextColumn::make('status')->sortable()->searchable(),
                 TextColumn::make('date_recrutement')->dateTime(),
                 TextColumn::make('created_at')->dateTime(),
-                SpatieMediaLibraryImageColumn::make('Photo')->collection('photos'),
 
             ])
             ->filters([
                 SelectFilter::make('filiere')->relationship('filiere', 'nom'),
                 SelectFilter::make('corp')->relationship('corp', 'nom'),
-                SelectFilter::make('grade')->relationship('grade', 'nom')
+                SelectFilter::make('grade')->relationship('grade', 'nom'),
+                SelectFilter::make('site')->relationship('site', 'nom'),
 
             ])
             ->actions([
