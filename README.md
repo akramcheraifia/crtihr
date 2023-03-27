@@ -34,7 +34,7 @@ To use the application, please follow the steps below:
 3. Set up the database details in .env file
 4. Run migrations `php artisan migrate`
 5. Link the storage `php artisan storage:link`
-6. Make a user `php artisan make:filament-user`
+6. Create a user `php artisan make:filament-user`
 7. Start the server: `php artisan serve`
 8. Access the application at `http://localhost:8000`
 
