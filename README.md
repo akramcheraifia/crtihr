@@ -2,6 +2,7 @@
 
 CRTIHR is a web-based application for managing employee information at CRTI(centre de recherche technologie industriel) Company based in algeria. This application was created as part of my internship at the company and as my final project for university. CRTIHR allows HR personnel to perform essential employee management tasks such as adding, editing, and deleting employee information, as well as filtering and searching for specific employees using various criteria.
 
+## Features
 
 The following features are included in the CRTIHR employee management system:
 
