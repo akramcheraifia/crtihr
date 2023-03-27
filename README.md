@@ -1,45 +1,63 @@
-```markdown
-<h1 align="center">CRTI Employee Management System</h1>
+# CRTIHR Employee Management System
 
-<p align="center">A web-based application built with Laravel for managing CRTI employees.</p>
+CRTIHR is a web-based application for managing employee information at CRTI(centre de recherche technologie industriel) Company based in algeria. This application was created as part of my internship at the company and as my final project for university. CRTIHR allows HR personnel to perform essential employee management tasks such as adding, editing, and deleting employee information, as well as filtering and searching for specific employees using various criteria.
 
-## 🚀 Features
+## Features
 
-- Add new employee records
-- View and search employee records
-- Edit existing employee records
-- Delete employee records
+The following features are included in the CRTIHR employee management system:
 
-## 🛠️ Installation
+* Add new employees to the system
+* Edit employee information and update existing employee records
+* Delete employees who are no longer with the company
+* Filter employee lists based on specific criteria such as department, position, or employment status
+* Search for employees by name or keyword
+* View employee information such as contact details, position, department, and employment status
+* Export data in (pdf,csv)
+* Dark mode
+* Resposive
+* Login/SignUp
 
-1. Clone the repository:
-   ```sh
-   git clone https://github.com/akramcheraifia/crtihr.git
+## Technology Stack
 
-2. Install the dependencies:
-    cd crtihr
-    composer install
-3. Create a copy of the .env.example file and update the database credentials:
-    cp .env.example .env
-    nano .env
-4. Generate a new application key:
-    php artisan key:generate
+The application is built with the following technologies:
 
-5. Migrate the database:
+* Front-end: HTML, CSS, JavaScript,Tailwind
+* Back-end: Laravel,Filament php
+* Database: MySQl
 
-    php artisan migrate
+## Getting Started
 
-6. Serve the application:
+To use the application, please follow the steps below:
 
-    The application will be available at http://localhost:8000.
+1. Clone the repository: `git clone https://github.com/akramcheraifia/crtihr.git`
+2. Install dependencies: `composer install`
+3. Set up the database details in .env file
+4. Run migrations `php artisan migrate`
+5. Link the storage `php artisan storage:link`
+6. Make a user `php artisan make:filament-user`
+7. Start the server: `php artisan serve`
+8. Access the application at `http://localhost:8000`
+
+## Contributing
+
+Contributions to the project are welcome! Please submit a pull request or open an issue if you find any bugs or have suggestions for new features.
+
+## License
+
+This project is licensed under the MIT License. See the LICENSE file for details.
 
 
+## Future Development
 
-🤝 Contributing
-Contributions are welcome! Please see CONTRIBUTING.md for details.
+In the future, we plan to add the following features to CRTIHR:
 
-📝 License
-This project is licensed under the MIT License. See LICENSE.md for more information.
+* Roles
+* The ability to generate reports
+* Integration with other HR systems and tools
+* Improved user interface and user experience
 
+## Contact
 
+If you have any questions or feedback about CRTIHR, please feel free to contact me at [akram.cheraifia@gmail.com] or through [https://www.linkedin.com/in/akram-cheraifia-a80bb826b].
 
+Thank you ...
