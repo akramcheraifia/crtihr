@@ -136,6 +136,13 @@ class EmployeeResource extends Resource
                 SelectFilter::make('corp')->relationship('corp', 'nom'),
                 SelectFilter::make('grade')->relationship('grade', 'nom'),
                 SelectFilter::make('site')->relationship('site', 'nom'),
+                SelectFilter::make('status')
+                ->options([
+                    'active' => 'Active',
+                    'Inactive' => 'Inactive',
+                    'mis en disponibilité' => 'Mis en disponibilité',
+                    'détacher' => 'Détacher',
+                ])
 
             ])
             ->actions([
