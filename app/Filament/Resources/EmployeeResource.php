@@ -139,8 +139,9 @@ class EmployeeResource extends Resource
 
             ])
             ->actions([
-                Tables\Actions\EditAction::make(),
+                Tables\Actions\EditAction::make()->requiresConfirmation(),
                 Tables\Actions\DeleteAction::make(),
+
             ])
             ->bulkActions([
                 Tables\Actions\DeleteBulkAction::make(),
@@ -178,4 +179,5 @@ protected function getTableHeaderActions(): array
         FilamentExportHeaderAction::make('Export'),
     ];
 }
+
 }
