@@ -10,6 +10,7 @@ use App\Models\Employee;
 use App\Models\Filiere;
 use App\Models\Grade;
 use App\Models\Site;
+use Closure;
 use Filament\Forms;
 use Filament\Forms\Components\Card;
 use Filament\Forms\Components\DatePicker;
@@ -20,6 +21,7 @@ use Filament\Resources\Form;
 use Filament\Resources\Resource;
 use Filament\Resources\Table;
 use Filament\Tables;
+use Filament\Tables\Actions\Action;
 use Filament\Tables\Columns\SpatieMediaLibraryImageColumn;
 use Filament\Tables\Columns\TextColumn;
 use Filament\Tables\Filters\SelectFilter;
@@ -146,9 +148,9 @@ class EmployeeResource extends Resource
 
             ])
             ->actions([
+                Tables\Actions\ViewAction::make(),
                 Tables\Actions\EditAction::make()->requiresConfirmation(),
                 Tables\Actions\DeleteAction::make(),
-
             ])
             ->bulkActions([
                 Tables\Actions\DeleteBulkAction::make(),
@@ -175,7 +177,6 @@ class EmployeeResource extends Resource
         return [
             'index' => Pages\ListEmployees::route('/'),
             'create' => Pages\CreateEmployee::route('/create'),
-            'edit' => Pages\EditEmployee::route('/{record}/edit'),
         ];
     }
 
@@ -186,5 +187,4 @@ protected function getTableHeaderActions(): array
         FilamentExportHeaderAction::make('Export'),
     ];
 }
-
 }
