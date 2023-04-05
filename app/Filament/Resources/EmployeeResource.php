@@ -22,6 +22,7 @@ use Filament\Resources\Resource;
 use Filament\Resources\Table;
 use Filament\Tables;
 use Filament\Tables\Actions\Action;
+use Filament\Tables\Columns\BadgeColumn;
 use Filament\Tables\Columns\SpatieMediaLibraryImageColumn;
 use Filament\Tables\Columns\TextColumn;
 use Filament\Tables\Filters\SelectFilter;
@@ -128,7 +129,12 @@ class EmployeeResource extends Resource
                 TextColumn::make('filiere.nom')->sortable()->searchable(),
                 TextColumn::make('corp.nom')->sortable()->searchable(),
                 TextColumn::make('grade.nom')->sortable()->searchable(),
-                TextColumn::make('status')->sortable()->searchable(),
+                BadgeColumn::make('status')
+                    ->colors([
+                        'danger' => 'Inactive',
+                        'success' => 'active',
+                        'warning' => fn ($state) => in_array($state, ['mis en disponibilité', 'détacher']),
+                    ])->sortable()->searchable(),
                 TextColumn::make('date_recrutement')->dateTime(),
                 TextColumn::make('created_at')->dateTime(),
 
