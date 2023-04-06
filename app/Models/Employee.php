@@ -6,10 +6,11 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Spatie\MediaLibrary\HasMedia;
 use Spatie\MediaLibrary\InteractsWithMedia;
+use Illuminate\Database\Eloquent\SoftDeletes;
 
 class Employee extends Model implements HasMedia
 {
-    use HasFactory , InteractsWithMedia;
+    use HasFactory , InteractsWithMedia, SoftDeletes;
     protected $fillable = ['nom', 'prenom', 'nom_ar', 'prenom_ar', 'NIN','CNAS', 'date_naissance', 'date_recrutement', 'lieu_naissance', 'sexe', 'situation_familiale','type_contrat', 'RIB', 'email', 'phone', 'image', 'filiere_id', 'corp_id', 'grade_id', 'site_id', 'status'];
 
     public function filiere()

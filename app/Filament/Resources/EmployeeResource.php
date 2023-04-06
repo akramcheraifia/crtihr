@@ -4,14 +4,10 @@ namespace App\Filament\Resources;
 
 use AlperenErsoy\FilamentExport\Actions\FilamentExportHeaderAction;
 use App\Filament\Resources\EmployeeResource\Pages;
-use App\Filament\Resources\EmployeeResource\RelationManagers;
 use App\Models\Corp;
 use App\Models\Employee;
 use App\Models\Filiere;
 use App\Models\Grade;
-use App\Models\Site;
-use Closure;
-use Filament\Forms;
 use Filament\Forms\Components\Card;
 use Filament\Forms\Components\DatePicker;
 use Filament\Forms\Components\Select;
@@ -21,15 +17,12 @@ use Filament\Resources\Form;
 use Filament\Resources\Resource;
 use Filament\Resources\Table;
 use Filament\Tables;
-use Filament\Tables\Actions\Action;
 use Filament\Tables\Columns\BadgeColumn;
 use Filament\Tables\Columns\SpatieMediaLibraryImageColumn;
 use Filament\Tables\Columns\TextColumn;
 use Filament\Tables\Filters\SelectFilter;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\SoftDeletingScope;
-use PhpParser\Node\Stmt\Label;
-
 class EmployeeResource extends Resource
 {
     protected static ?string $model = Employee::class;
@@ -121,25 +114,35 @@ class EmployeeResource extends Resource
     {
         return $table
             ->columns([
-                TextColumn::make('id')->sortable(),
-                SpatieMediaLibraryImageColumn::make('Photo')->collection('photos'),
-                TextColumn::make('nom')->searchable()->sortable(),
-                TextColumn::make('prenom')->searchable()->sortable(),
-                TextColumn::make('site.nom')->sortable()->searchable(),
-                TextColumn::make('filiere.nom')->sortable()->searchable(),
-                TextColumn::make('corp.nom')->sortable()->searchable(),
-                TextColumn::make('grade.nom')->sortable()->searchable(),
+                TextColumn::make('id')->sortable()->toggleable(),
+                SpatieMediaLibraryImageColumn::make('Photo')->collection('photos')->toggleable(),
+                TextColumn::make('nom')->searchable()->sortable()->toggleable(),
+                TextColumn::make('prenom')->searchable()->sortable()->toggleable(),
+                TextColumn::make('site.nom')->sortable()->searchable()->toggleable(),
+                TextColumn::make('filiere.nom')->sortable()->searchable()->toggleable(),
+                TextColumn::make('corp.nom')->sortable()->searchable()->toggleable(),
+                TextColumn::make('grade.nom')->sortable()->searchable()->toggleable(),
+                TextColumn::make('sexe')->sortable()->searchable()->toggleable(isToggledHiddenByDefault: true),
+                TextColumn::make('situation_familiale')->sortable()->searchable()->toggleable(isToggledHiddenByDefault: true),
+                TextColumn::make('type_contrat')->sortable()->searchable()->toggleable(isToggledHiddenByDefault: true),
                 BadgeColumn::make('status')
                     ->colors([
                         'danger' => 'Inactive',
                         'success' => 'active',
                         'warning' => fn ($state) => in_array($state, ['mis en disponibilité', 'détacher']),
-                    ])->sortable()->searchable(),
-                TextColumn::make('date_recrutement')->dateTime(),
-                TextColumn::make('created_at')->dateTime(),
+                    ])->sortable()->searchable()->toggleable(),
+                TextColumn::make('NIN')->sortable()->searchable()->toggleable(isToggledHiddenByDefault: true),
+                TextColumn::make('CNAS')->sortable()->searchable()->toggleable(isToggledHiddenByDefault: true),
+                TextColumn::make('RIB')->sortable()->searchable()->toggleable(isToggledHiddenByDefault: true),
+                TextColumn::make('email')->sortable()->searchable()->toggleable(isToggledHiddenByDefault: true),
+                TextColumn::make('phone')->sortable()->searchable()->toggleable(isToggledHiddenByDefault: true),
+                TextColumn::make('date_naissance')->dateTime()->toggleable(isToggledHiddenByDefault: true),
+                TextColumn::make('date_recrutement')->dateTime()->toggleable(isToggledHiddenByDefault: true),
+                TextColumn::make('created_at')->dateTime()->toggleable(isToggledHiddenByDefault: true),
 
             ])
             ->filters([
+                Tables\Filters\TrashedFilter::make(),
                 SelectFilter::make('filiere')->relationship('filiere', 'nom'),
                 SelectFilter::make('corp')->relationship('corp', 'nom'),
                 SelectFilter::make('grade')->relationship('grade', 'nom'),
@@ -157,9 +160,13 @@ class EmployeeResource extends Resource
                 Tables\Actions\ViewAction::make(),
                 Tables\Actions\EditAction::make()->requiresConfirmation(),
                 Tables\Actions\DeleteAction::make(),
+                Tables\Actions\ForceDeleteAction::make(),
+                Tables\Actions\RestoreAction::make(),
             ])
             ->bulkActions([
                 Tables\Actions\DeleteBulkAction::make(),
+                Tables\Actions\ForceDeleteBulkAction::make(),
+                Tables\Actions\RestoreBulkAction::make(),
             ])
             ->headerActions([
 
@@ -192,5 +199,12 @@ protected function getTableHeaderActions(): array
 
         FilamentExportHeaderAction::make('Export'),
     ];
+}
+public static function getEloquentQuery(): Builder
+{
+    return parent::getEloquentQuery()
+        ->withoutGlobalScopes([
+            SoftDeletingScope::class,
+        ]);
 }
 }
