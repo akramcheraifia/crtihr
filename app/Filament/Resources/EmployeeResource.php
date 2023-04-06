@@ -21,6 +21,8 @@ use Filament\Tables\Columns\BadgeColumn;
 use Filament\Tables\Columns\SpatieMediaLibraryImageColumn;
 use Filament\Tables\Columns\TextColumn;
 use Filament\Tables\Filters\SelectFilter;
+use Illuminate\Database\Eloquent\Builder;
+use Illuminate\Database\Eloquent\SoftDeletingScope;
 class EmployeeResource extends Resource
 {
     protected static ?string $model = Employee::class;
@@ -140,6 +142,7 @@ class EmployeeResource extends Resource
 
             ])
             ->filters([
+                Tables\Filters\TrashedFilter::make(),
                 SelectFilter::make('filiere')->relationship('filiere', 'nom'),
                 SelectFilter::make('corp')->relationship('corp', 'nom'),
                 SelectFilter::make('grade')->relationship('grade', 'nom'),
@@ -157,9 +160,13 @@ class EmployeeResource extends Resource
                 Tables\Actions\ViewAction::make(),
                 Tables\Actions\EditAction::make()->requiresConfirmation(),
                 Tables\Actions\DeleteAction::make(),
+                Tables\Actions\ForceDeleteAction::make(),
+                Tables\Actions\RestoreAction::make(),
             ])
             ->bulkActions([
                 Tables\Actions\DeleteBulkAction::make(),
+                Tables\Actions\ForceDeleteBulkAction::make(),
+                Tables\Actions\RestoreBulkAction::make(),
             ])
             ->headerActions([
 
@@ -192,5 +199,12 @@ protected function getTableHeaderActions(): array
 
         FilamentExportHeaderAction::make('Export'),
     ];
+}
+public static function getEloquentQuery(): Builder
+{
+    return parent::getEloquentQuery()
+        ->withoutGlobalScopes([
+            SoftDeletingScope::class,
+        ]);
 }
 }
