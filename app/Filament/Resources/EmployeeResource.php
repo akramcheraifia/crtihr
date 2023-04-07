@@ -2,6 +2,7 @@
 
 namespace App\Filament\Resources;
 
+use AlperenErsoy\FilamentExport\Actions\FilamentExportBulkAction;
 use AlperenErsoy\FilamentExport\Actions\FilamentExportHeaderAction;
 use App\Filament\Resources\EmployeeResource\Pages;
 use App\Models\Corp;
@@ -164,9 +165,14 @@ class EmployeeResource extends Resource
                 Tables\Actions\RestoreAction::make(),
             ])
             ->bulkActions([
+                FilamentExportBulkAction::make('export')
+                ->disableAdditionalColumns()
+                ->fileNameFieldLabel('Nom de fichier')
+                ->filterColumnsFieldLabel('Filtrer les colonnes'),
                 Tables\Actions\DeleteBulkAction::make(),
                 Tables\Actions\ForceDeleteBulkAction::make(),
                 Tables\Actions\RestoreBulkAction::make(),
+
             ])
             ->headerActions([
 
