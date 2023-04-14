@@ -2,9 +2,9 @@
 
 namespace App\Filament\Resources;
 
-use App\Filament\Resources\FiliereResource\Pages;
-use App\Filament\Resources\FiliereResource\RelationManagers;
-use App\Models\Filiere;
+use App\Filament\Resources\PermissionResource\Pages;
+use App\Filament\Resources\PermissionResource\RelationManagers;
+use App\Models\Permission;
 use Filament\Forms;
 use Filament\Forms\Components\Card;
 use Filament\Forms\Components\TextInput;
@@ -16,16 +16,14 @@ use Filament\Tables\Columns\TextColumn;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\SoftDeletingScope;
 
-class FiliereResource extends Resource
+class PermissionResource extends Resource
 {
-    protected static ?string $model = Filiere::class;
+    protected static ?string $model = Permission::class;
 
     protected static ?string $navigationIcon = 'heroicon-o-collection';
-    protected static ?string $navigationGroup = 'Structure';
-    protected static ?string $navigationLabel = 'Filière';
-    protected static ?int $navigationSort =1;
 
-
+    protected static ?string $navigationGroup = 'Paramètres';
+    protected static ?int $navigationSort =2;
 
     public static function form(Form $form): Form
     {
@@ -33,10 +31,10 @@ class FiliereResource extends Resource
             ->schema([
                 Card::make()
     ->schema([
-        TextInput::make('nom')
+        TextInput::make('name')
         ->required(255)
+        ->unique(ignoreRecord: true)
     ])
-
             ]);
     }
 
@@ -45,8 +43,9 @@ class FiliereResource extends Resource
         return $table
             ->columns([
                 TextColumn::make('id')->sortable(),
-                TextColumn::make('nom')->searchable()->sortable(),
+                TextColumn::make('name')->searchable()->sortable(),
                 TextColumn::make('created_at')->dateTime()
+
             ])
             ->filters([
                 //
@@ -70,9 +69,9 @@ class FiliereResource extends Resource
     public static function getPages(): array
     {
         return [
-            'index' => Pages\ListFilieres::route('/'),
-            'create' => Pages\CreateFiliere::route('/create'),
-            'edit' => Pages\EditFiliere::route('/{record}/edit'),
+            'index' => Pages\ListPermissions::route('/'),
+            'create' => Pages\CreatePermission::route('/create'),
+            'edit' => Pages\EditPermission::route('/{record}/edit'),
         ];
     }
 }
