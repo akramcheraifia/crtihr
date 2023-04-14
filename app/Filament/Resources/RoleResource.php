@@ -2,11 +2,12 @@
 
 namespace App\Filament\Resources;
 
-use App\Filament\Resources\FiliereResource\Pages;
-use App\Filament\Resources\FiliereResource\RelationManagers;
-use App\Models\Filiere;
+use App\Filament\Resources\RoleResource\Pages;
+use App\Filament\Resources\RoleResource\RelationManagers;
+use App\Models\Role;
 use Filament\Forms;
 use Filament\Forms\Components\Card;
+use Filament\Forms\Components\Select;
 use Filament\Forms\Components\TextInput;
 use Filament\Resources\Form;
 use Filament\Resources\Resource;
@@ -16,16 +17,15 @@ use Filament\Tables\Columns\TextColumn;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\SoftDeletingScope;
 
-class FiliereResource extends Resource
+class RoleResource extends Resource
 {
-    protected static ?string $model = Filiere::class;
+    protected static ?string $model = Role::class;
 
     protected static ?string $navigationIcon = 'heroicon-o-collection';
-    protected static ?string $navigationGroup = 'Structure';
-    protected static ?string $navigationLabel = 'Filière';
+
+    protected static ?string $navigationGroup = 'Paramètres';
+    protected static ?string $navigationLabel = 'Rôles';
     protected static ?int $navigationSort =1;
-
-
 
     public static function form(Form $form): Form
     {
@@ -33,10 +33,13 @@ class FiliereResource extends Resource
             ->schema([
                 Card::make()
     ->schema([
-        TextInput::make('nom')
+        TextInput::make('name')
         ->required(255)
+        ->unique(ignoreRecord: true),
+        Select::make('permissions')
+    ->multiple()
+    ->relationship('permissions', 'name')->preload()
     ])
-
             ]);
     }
 
@@ -45,8 +48,9 @@ class FiliereResource extends Resource
         return $table
             ->columns([
                 TextColumn::make('id')->sortable(),
-                TextColumn::make('nom')->searchable()->sortable(),
-                TextColumn::make('created_at')->dateTime()
+                TextColumn::make('name')->searchable()->sortable()->label('Nom'),
+                TextColumn::make('permissions.name')->label('Permissions'),
+                TextColumn::make('created_at')->dateTime()->label('Créé_à'),
             ])
             ->filters([
                 //
@@ -70,9 +74,13 @@ class FiliereResource extends Resource
     public static function getPages(): array
     {
         return [
-            'index' => Pages\ListFilieres::route('/'),
-            'create' => Pages\CreateFiliere::route('/create'),
-            'edit' => Pages\EditFiliere::route('/{record}/edit'),
+            'index' => Pages\ListRoles::route('/'),
+            'create' => Pages\CreateRole::route('/create'),
+            'edit' => Pages\EditRole::route('/{record}/edit'),
         ];
     }
+    public static function getEloquentQuery(): Builder
+{
+    return parent::getEloquentQuery()->where('name', '!=', 'Admin');
+}
 }

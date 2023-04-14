@@ -7,6 +7,7 @@ use App\Filament\Resources\UserResource\RelationManagers;
 use App\Models\User;
 use Filament\Forms;
 use Filament\Forms\Components\Card;
+use Filament\Forms\Components\Select;
 use Filament\Forms\Components\TextInput;
 use Filament\Pages\Page;
 use Filament\Resources\Form;
@@ -18,13 +19,15 @@ use Filament\Tables\Columns\TextColumn;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\SoftDeletingScope;
 use Illuminate\Support\Facades\Hash;
+use PhpParser\Node\Stmt\Label;
 
 class UserResource extends Resource
 {
     protected static ?string $model = User::class;
 
     protected static ?string $navigationIcon = 'heroicon-o-collection';
-    protected static ?string $navigationGroup = 'User managment';
+    protected static ?string $navigationGroup = 'Paramètres';
+    protected static ?string $navigationLabel = 'Utilisateurs';
 
 
     public static function form(Form $form): Form
@@ -37,7 +40,8 @@ class UserResource extends Resource
                             ->required()
                             ->maxLength(255)
                             ->autofocus()
-                            ->placeholder('Enter a name...'),
+                            ->label('Nom')
+                            ->placeholder('Entrez un nom...'),
                         TextInput::make('email')
                             ->required()
                             ->placeholder('Enter an email...')
@@ -45,7 +49,8 @@ class UserResource extends Resource
                             ->email(),
                         TextInput::make('password')
                             ->required(fn (Page $livewire): bool => $livewire instanceof CreateRecord)
-                            ->placeholder('Enter a password...')
+                            ->placeholder('Entrer un mot de passe...')
+                            ->label('Mot de passe')
                             ->minLength(8)
                             ->password()
                             ->same('passwordConfirmation')
@@ -53,13 +58,17 @@ class UserResource extends Resource
                             ->dehydrateStateUsing(fn ($state)=> Hash::make($state)),
                             TextInput::make('passwordConfirmation')
                             ->required(fn (Page $livewire): bool => $livewire instanceof CreateRecord)
-                            ->placeholder('Confirm the password...')
+                            ->placeholder('Confirmez le mot de passe...')
+                            ->label('Confirmation du mot de passe')
                             ->minLength(8)
                             ->same('password')
                             ->dehydrated(false)
                             ->password(),
-
-                    ]),
+                            Select::make('roles')
+                            ->multiple()
+                            ->relationship('roles', 'name')->preload()
+                            ->label('Rôle')
+                                        ]),
             ]);
     }
 
@@ -76,6 +85,7 @@ class UserResource extends Resource
                 //
             ])
             ->actions([
+                Tables\Actions\ViewAction::make(),
                 Tables\Actions\EditAction::make(),
                 Tables\Actions\DeleteAction::make(),
             ])
