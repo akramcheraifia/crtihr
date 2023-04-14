@@ -34,6 +34,7 @@ class PermissionResource extends Resource
         TextInput::make('name')
         ->required(255)
         ->unique(ignoreRecord: true)
+        ->label('Nom'),
     ])
             ]);
     }
@@ -42,9 +43,9 @@ class PermissionResource extends Resource
     {
         return $table
             ->columns([
-                TextColumn::make('id')->sortable(),
-                TextColumn::make('name')->searchable()->sortable(),
-                TextColumn::make('created_at')->dateTime()
+                TextColumn::make('id')->sortable()->label('ID'),
+                TextColumn::make('name')->searchable()->sortable()->label('Nom'),
+                TextColumn::make('created_at')->dateTime()->label('Créé le'),
 
             ])
             ->filters([

@@ -35,7 +35,8 @@ class RoleResource extends Resource
     ->schema([
         TextInput::make('name')
         ->required(255)
-        ->unique(ignoreRecord: true),
+        ->unique(ignoreRecord: true)
+        ->label('Nom'),
         Select::make('permissions')
     ->multiple()
     ->relationship('permissions', 'name')->preload()
@@ -50,7 +51,7 @@ class RoleResource extends Resource
                 TextColumn::make('id')->sortable(),
                 TextColumn::make('name')->searchable()->sortable()->label('Nom'),
                 TextColumn::make('permissions.name')->label('Permissions'),
-                TextColumn::make('created_at')->dateTime()->label('Créé_à'),
+                TextColumn::make('created_at')->dateTime()->label('Créé le'),
             ])
             ->filters([
                 //

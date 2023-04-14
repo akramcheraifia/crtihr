@@ -11,6 +11,7 @@ use Filament\Resources\Resource;
 use Filament\Resources\Table;
 use Filament\Tables;
 use Filament\Tables\Columns\TextColumn;
+use PhpParser\Node\Stmt\Label;
 
 
 class SiteResource extends Resource
@@ -41,7 +42,7 @@ class SiteResource extends Resource
                 TextColumn::make('nom')
                     ->sortable()
                     ->searchable(),
-                 TextColumn::make('created_at')->dateTime()
+                 TextColumn::make('created_at')->dateTime()->sortable()->Label('Créé le'),
 
             ])
             ->filters([

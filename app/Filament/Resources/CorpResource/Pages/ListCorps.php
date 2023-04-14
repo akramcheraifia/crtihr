@@ -9,6 +9,7 @@ use Filament\Resources\Pages\ListRecords;
 class ListCorps extends ListRecords
 {
     protected static string $resource = CorpResource::class;
+    protected static ?string $title = 'Corps';
 
     protected function getActions(): array
     {

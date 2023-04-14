@@ -9,6 +9,7 @@ use Filament\Resources\Pages\EditRecord;
 class EditSite extends EditRecord
 {
     protected static string $resource = SiteResource::class;
+    protected static ?string $title = 'Modifier un site';
 
     protected function getActions(): array
     {

@@ -9,4 +9,6 @@ use Filament\Resources\Pages\CreateRecord;
 class CreateSite extends CreateRecord
 {
     protected static string $resource = SiteResource::class;
+    protected static ?string $title = 'Créer un site';
+
 }

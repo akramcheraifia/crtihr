@@ -9,6 +9,7 @@ use Filament\Resources\Pages\ListRecords;
 class ListPermissions extends ListRecords
 {
     protected static string $resource = PermissionResource::class;
+    protected static ?string $title = 'Permissions';
 
     protected function getActions(): array
     {

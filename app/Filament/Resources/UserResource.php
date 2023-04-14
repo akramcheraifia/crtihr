@@ -44,7 +44,7 @@ class UserResource extends Resource
                             ->placeholder('Entrez un nom...'),
                         TextInput::make('email')
                             ->required()
-                            ->placeholder('Enter an email...')
+                            ->placeholder('Enter un email...')
                             ->maxLength(255)
                             ->email(),
                         TextInput::make('password')
@@ -77,9 +77,10 @@ class UserResource extends Resource
         return $table
             ->columns([
                 TextColumn::make('id')->sortable(),
-                TextColumn::make('name')->searchable()->sortable(),
-                TextColumn::make('email')->searchable()->sortable(),
-                TextColumn::make('created_at')->dateTime()
+                TextColumn::make('name')->searchable()->sortable()->label('Nom'),
+                TextColumn::make('email')->searchable()->sortable()->label('Email'),
+                TextColumn::make('roles.name')->sortable()->label('Rôle'),
+                TextColumn::make('created_at')->dateTime()->sortable()->label('Créé le'),
             ])
             ->filters([
                 //

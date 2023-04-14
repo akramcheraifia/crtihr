@@ -9,6 +9,7 @@ use Filament\Resources\Pages\ListRecords;
 class ListFilieres extends ListRecords
 {
     protected static string $resource = FiliereResource::class;
+    protected static ?string $title = 'Filieres';
 
     protected function getActions(): array
     {

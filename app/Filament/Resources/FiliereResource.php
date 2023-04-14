@@ -46,7 +46,7 @@ class FiliereResource extends Resource
             ->columns([
                 TextColumn::make('id')->sortable(),
                 TextColumn::make('nom')->searchable()->sortable(),
-                TextColumn::make('created_at')->dateTime()
+                TextColumn::make('created_at')->dateTime()->label('Créé le'),
             ])
             ->filters([
                 //

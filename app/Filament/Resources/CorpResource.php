@@ -47,7 +47,7 @@ class CorpResource extends Resource
                 TextColumn::make('id')->sortable(),
                 TextColumn::make('nom')->searchable()->sortable()->searchable(),
                 TextColumn::make('filiere.nom')->sortable(),
-                TextColumn::make('created_at')->dateTime()
+                TextColumn::make('created_at')->dateTime()->label('Créé le'),
             ])
             ->filters([
                 //

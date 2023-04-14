@@ -9,4 +9,5 @@ use Filament\Resources\Pages\CreateRecord;
 class CreateFiliere extends CreateRecord
 {
     protected static string $resource = FiliereResource::class;
+    protected static ?string $title = 'Créer une filière';
 }

@@ -9,6 +9,7 @@ use Filament\Resources\Pages\EditRecord;
 class EditGrade extends EditRecord
 {
     protected static string $resource = GradeResource::class;
+    protected static ?string $title = 'Modifier un grade';
 
     protected function getActions(): array
     {
