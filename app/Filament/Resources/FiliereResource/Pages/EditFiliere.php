@@ -9,6 +9,7 @@ use Filament\Resources\Pages\EditRecord;
 class EditFiliere extends EditRecord
 {
     protected static string $resource = FiliereResource::class;
+    protected static ?string $title = 'Modifier une filière';
 
     protected function getActions(): array
     {

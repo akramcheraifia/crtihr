@@ -28,8 +28,10 @@ class EmployeeResource extends Resource
 {
     protected static ?string $model = Employee::class;
 
-    protected static ?string $navigationIcon = 'heroicon-o-collection';
+    protected static ?string $navigationIcon = 'heroicon-o-briefcase';
     protected static ?string $navigationLabel = 'Fonctionnaires';
+    protected static ?string $navigationGroup = 'Gestion des fonctionnaires';
+
 
     public static function form(Form $form): Form
     {
@@ -140,7 +142,7 @@ class EmployeeResource extends Resource
                 TextColumn::make('phone')->sortable()->searchable()->toggleable(isToggledHiddenByDefault: true),
                 TextColumn::make('date_naissance')->dateTime()->toggleable(isToggledHiddenByDefault: true),
                 TextColumn::make('date_recrutement')->dateTime()->toggleable(isToggledHiddenByDefault: true),
-                TextColumn::make('created_at')->dateTime()->toggleable(isToggledHiddenByDefault: true),
+                TextColumn::make('created_at')->dateTime()->toggleable(isToggledHiddenByDefault: true)->label('Créé le'),
 
             ])
             ->filters([

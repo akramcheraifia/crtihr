@@ -21,7 +21,7 @@ class GradeResource extends Resource
 {
     protected static ?string $model = Grade::class;
 
-    protected static ?string $navigationIcon = 'heroicon-o-collection';
+    protected static ?string $navigationIcon = 'heroicon-o-clipboard-list';
     protected static ?string $navigationGroup = 'Structure';
 
     protected static ?int $navigationSort =3;
@@ -45,10 +45,9 @@ class GradeResource extends Resource
     {
         return $table
             ->columns([
-                TextColumn::make('id')->sortable(),
                 TextColumn::make('nom')->searchable()->sortable(),
                 TextColumn::make('corp.nom')->sortable(),
-                TextColumn::make('created_at')->dateTime(),
+                TextColumn::make('created_at')->dateTime()->label('Créé le'),
             ])
             ->filters([
                 //
@@ -74,7 +73,6 @@ class GradeResource extends Resource
         return [
             'index' => Pages\ListGrades::route('/'),
             'create' => Pages\CreateGrade::route('/create'),
-            'edit' => Pages\EditGrade::route('/{record}/edit'),
         ];
     }
 }

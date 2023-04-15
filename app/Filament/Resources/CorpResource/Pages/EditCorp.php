@@ -9,6 +9,7 @@ use Filament\Resources\Pages\EditRecord;
 class EditCorp extends EditRecord
 {
     protected static string $resource = CorpResource::class;
+    protected static ?string $title = 'Modifier un corp';
 
     protected function getActions(): array
     {

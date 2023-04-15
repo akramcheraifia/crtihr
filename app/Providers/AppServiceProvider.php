@@ -25,6 +25,7 @@ class AppServiceProvider extends ServiceProvider
             Filament::registerViteTheme('resources/css/filament.css');
         });
         Filament::registerNavigationGroups([
+            'Gestion des fonctionnaires',
             'Structure',
             'Settings',
         ]);

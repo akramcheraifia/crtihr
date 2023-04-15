@@ -9,6 +9,7 @@ use Filament\Resources\Pages\ListRecords;
 class ListGrades extends ListRecords
 {
     protected static string $resource = GradeResource::class;
+    protected static ?string $title = 'Grades';
 
     protected function getActions(): array
     {

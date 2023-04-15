@@ -20,7 +20,7 @@ class FiliereResource extends Resource
 {
     protected static ?string $model = Filiere::class;
 
-    protected static ?string $navigationIcon = 'heroicon-o-collection';
+    protected static ?string $navigationIcon = 'heroicon-o-office-building';
     protected static ?string $navigationGroup = 'Structure';
     protected static ?string $navigationLabel = 'Filière';
     protected static ?int $navigationSort =1;
@@ -44,9 +44,8 @@ class FiliereResource extends Resource
     {
         return $table
             ->columns([
-                TextColumn::make('id')->sortable(),
                 TextColumn::make('nom')->searchable()->sortable(),
-                TextColumn::make('created_at')->dateTime()
+                TextColumn::make('created_at')->dateTime()->label('Créé le'),
             ])
             ->filters([
                 //
@@ -72,7 +71,6 @@ class FiliereResource extends Resource
         return [
             'index' => Pages\ListFilieres::route('/'),
             'create' => Pages\CreateFiliere::route('/create'),
-            'edit' => Pages\EditFiliere::route('/{record}/edit'),
         ];
     }
 }

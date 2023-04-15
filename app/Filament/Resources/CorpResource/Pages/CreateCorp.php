@@ -9,4 +9,5 @@ use Filament\Resources\Pages\CreateRecord;
 class CreateCorp extends CreateRecord
 {
     protected static string $resource = CorpResource::class;
+    protected static ?string $title = 'Créer un corp';
 }

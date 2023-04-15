@@ -11,13 +11,14 @@ use Filament\Resources\Resource;
 use Filament\Resources\Table;
 use Filament\Tables;
 use Filament\Tables\Columns\TextColumn;
+use PhpParser\Node\Stmt\Label;
 
 
 class SiteResource extends Resource
 {
     protected static ?string $model = Site::class;
 
-    protected static ?string $navigationIcon = 'heroicon-o-collection';
+    protected static ?string $navigationIcon = 'heroicon-o-globe';
     protected static ?string $navigationGroup = 'Structure';
     public static function form(Form $form): Form
     {
@@ -36,12 +37,10 @@ class SiteResource extends Resource
     {
         return $table
             ->columns([
-                TextColumn::make('id')
-                    ->sortable(),
                 TextColumn::make('nom')
                     ->sortable()
                     ->searchable(),
-                 TextColumn::make('created_at')->dateTime()
+                 TextColumn::make('created_at')->dateTime()->sortable()->Label('Créé le'),
 
             ])
             ->filters([
@@ -49,6 +48,7 @@ class SiteResource extends Resource
             ])
             ->actions([
                 Tables\Actions\EditAction::make(),
+                Tables\Actions\DeleteAction::make(),
             ])
             ->bulkActions([
                 Tables\Actions\DeleteBulkAction::make(),
@@ -67,7 +67,6 @@ class SiteResource extends Resource
         return [
             'index' => Pages\ListSites::route('/'),
             'create' => Pages\CreateSite::route('/create'),
-            'edit' => Pages\EditSite::route('/{record}/edit'),
         ];
     }
 }

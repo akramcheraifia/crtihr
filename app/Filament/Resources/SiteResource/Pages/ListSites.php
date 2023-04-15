@@ -9,6 +9,7 @@ use Filament\Resources\Pages\ListRecords;
 class ListSites extends ListRecords
 {
     protected static string $resource = SiteResource::class;
+    protected static ?string $title = 'Sites';
 
     protected function getActions(): array
     {
