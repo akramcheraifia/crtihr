@@ -27,7 +27,6 @@ class UserResource extends Resource
 
     protected static ?string $navigationIcon = 'heroicon-o-user-group';
     protected static ?string $navigationGroup = 'Paramètres';
-    protected static ?string $navigationLabel = 'Utilisateurs';
 
 
     public static function form(Form $form): Form
@@ -68,15 +67,17 @@ class UserResource extends Resource
                             ->multiple()
                             ->relationship('roles', 'name')->preload()
                             ->label('Rôle')
+                            ->visible(fn () => auth()->user()->hasRole('Admin'))
                                         ]),
             ]);
     }
 
     public static function table(Table $table): Table
     {
+
+
         return $table
             ->columns([
-                TextColumn::make('id')->sortable(),
                 TextColumn::make('name')->searchable()->sortable()->label('Nom'),
                 TextColumn::make('email')->searchable()->sortable()->label('Email'),
                 TextColumn::make('roles.name')->sortable()->label('Rôle'),
@@ -86,7 +87,6 @@ class UserResource extends Resource
                 //
             ])
             ->actions([
-                Tables\Actions\ViewAction::make(),
                 Tables\Actions\EditAction::make(),
                 Tables\Actions\DeleteAction::make(),
             ])
@@ -106,8 +106,24 @@ class UserResource extends Resource
     {
         return [
             'index' => Pages\ListUsers::route('/'),
-            'create' => Pages\CreateUser::route('/create'),
-            'edit' => Pages\EditUser::route('/{record}/edit'),
-        ];
+            'create' => Pages\CreateUser::route('/create'),        ];
     }
+    // public function getQuery()
+    // {
+    //     return static::getModel()::query()
+    //         ->where('id', auth()->id());
+    // }
+    public static function getEloquentQuery(): Builder
+{
+    if (auth()->user()->hasRole('Admin')) {
+        return parent::getEloquentQuery();
+    }
+    else {
+        return parent::getEloquentQuery()->where('id', auth()->id());
+    }
+}
+public static function getNavigationLabel(): string
+{
+    return auth()->user()->hasRole('Admin') ? 'Utilisateurs' : 'Mon Compte';
+}
 }

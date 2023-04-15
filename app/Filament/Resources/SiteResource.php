@@ -37,8 +37,6 @@ class SiteResource extends Resource
     {
         return $table
             ->columns([
-                TextColumn::make('id')
-                    ->sortable(),
                 TextColumn::make('nom')
                     ->sortable()
                     ->searchable(),
@@ -50,6 +48,7 @@ class SiteResource extends Resource
             ])
             ->actions([
                 Tables\Actions\EditAction::make(),
+                Tables\Actions\DeleteAction::make(),
             ])
             ->bulkActions([
                 Tables\Actions\DeleteBulkAction::make(),
@@ -68,7 +67,6 @@ class SiteResource extends Resource
         return [
             'index' => Pages\ListSites::route('/'),
             'create' => Pages\CreateSite::route('/create'),
-            'edit' => Pages\EditSite::route('/{record}/edit'),
         ];
     }
 }

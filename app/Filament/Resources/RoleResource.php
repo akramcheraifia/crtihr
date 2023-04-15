@@ -48,7 +48,6 @@ class RoleResource extends Resource
     {
         return $table
             ->columns([
-                TextColumn::make('id')->sortable(),
                 TextColumn::make('name')->searchable()->sortable()->label('Nom'),
                 TextColumn::make('permissions.name')->label('Permissions'),
                 TextColumn::make('created_at')->dateTime()->label('Créé le'),
@@ -77,11 +76,6 @@ class RoleResource extends Resource
         return [
             'index' => Pages\ListRoles::route('/'),
             'create' => Pages\CreateRole::route('/create'),
-            'edit' => Pages\EditRole::route('/{record}/edit'),
         ];
     }
-    public static function getEloquentQuery(): Builder
-{
-    return parent::getEloquentQuery()->where('name', '!=', 'Admin');
-}
 }

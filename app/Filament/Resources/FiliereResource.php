@@ -44,7 +44,6 @@ class FiliereResource extends Resource
     {
         return $table
             ->columns([
-                TextColumn::make('id')->sortable(),
                 TextColumn::make('nom')->searchable()->sortable(),
                 TextColumn::make('created_at')->dateTime()->label('Créé le'),
             ])
@@ -72,7 +71,6 @@ class FiliereResource extends Resource
         return [
             'index' => Pages\ListFilieres::route('/'),
             'create' => Pages\CreateFiliere::route('/create'),
-            'edit' => Pages\EditFiliere::route('/{record}/edit'),
         ];
     }
 }

@@ -44,7 +44,6 @@ class CorpResource extends Resource
     {
         return $table
             ->columns([
-                TextColumn::make('id')->sortable(),
                 TextColumn::make('nom')->searchable()->sortable()->searchable(),
                 TextColumn::make('filiere.nom')->sortable(),
                 TextColumn::make('created_at')->dateTime()->label('Créé le'),
@@ -73,7 +72,6 @@ class CorpResource extends Resource
         return [
             'index' => Pages\ListCorps::route('/'),
             'create' => Pages\CreateCorp::route('/create'),
-            'edit' => Pages\EditCorp::route('/{record}/edit'),
         ];
     }
 }

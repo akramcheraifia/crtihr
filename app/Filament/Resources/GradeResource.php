@@ -45,7 +45,6 @@ class GradeResource extends Resource
     {
         return $table
             ->columns([
-                TextColumn::make('id')->sortable(),
                 TextColumn::make('nom')->searchable()->sortable(),
                 TextColumn::make('corp.nom')->sortable(),
                 TextColumn::make('created_at')->dateTime()->label('Créé le'),
@@ -74,7 +73,6 @@ class GradeResource extends Resource
         return [
             'index' => Pages\ListGrades::route('/'),
             'create' => Pages\CreateGrade::route('/create'),
-            'edit' => Pages\EditGrade::route('/{record}/edit'),
         ];
     }
 }

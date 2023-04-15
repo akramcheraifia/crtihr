@@ -43,7 +43,6 @@ class PermissionResource extends Resource
     {
         return $table
             ->columns([
-                TextColumn::make('id')->sortable()->label('ID'),
                 TextColumn::make('name')->searchable()->sortable()->label('Nom'),
                 TextColumn::make('created_at')->dateTime()->label('Créé le'),
 
@@ -72,7 +71,6 @@ class PermissionResource extends Resource
         return [
             'index' => Pages\ListPermissions::route('/'),
             'create' => Pages\CreatePermission::route('/create'),
-            'edit' => Pages\EditPermission::route('/{record}/edit'),
         ];
     }
 }
