@@ -20,7 +20,7 @@ class FiliereResource extends Resource
 {
     protected static ?string $model = Filiere::class;
 
-    protected static ?string $navigationIcon = 'heroicon-o-collection';
+    protected static ?string $navigationIcon = 'heroicon-o-office-building';
     protected static ?string $navigationGroup = 'Structure';
     protected static ?string $navigationLabel = 'Filière';
     protected static ?int $navigationSort =1;

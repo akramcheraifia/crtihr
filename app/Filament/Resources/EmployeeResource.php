@@ -28,8 +28,10 @@ class EmployeeResource extends Resource
 {
     protected static ?string $model = Employee::class;
 
-    protected static ?string $navigationIcon = 'heroicon-o-collection';
+    protected static ?string $navigationIcon = 'heroicon-o-briefcase';
     protected static ?string $navigationLabel = 'Fonctionnaires';
+    protected static ?string $navigationGroup = 'Gestion des fonctionnaires';
+
 
     public static function form(Form $form): Form
     {
