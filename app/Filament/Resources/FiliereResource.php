@@ -51,7 +51,8 @@ class FiliereResource extends Resource
                 //
             ])
             ->actions([
-                Tables\Actions\EditAction::make(),
+                Tables\Actions\EditAction::make()
+                ->modalHeading('Modifier la filière'),
                 Tables\Actions\DeleteAction::make(),
             ])
             ->bulkActions([

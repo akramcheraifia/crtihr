@@ -47,7 +47,8 @@ class SiteResource extends Resource
                 //
             ])
             ->actions([
-                Tables\Actions\EditAction::make(),
+                Tables\Actions\EditAction::make()
+                ->modalHeading('Modifier le site'),
                 Tables\Actions\DeleteAction::make(),
             ])
             ->bulkActions([
