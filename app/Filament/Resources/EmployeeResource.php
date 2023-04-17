@@ -162,7 +162,7 @@ class EmployeeResource extends Resource
             ])
             ->actions([
                 Tables\Actions\ViewAction::make(),
-                Tables\Actions\EditAction::make()->requiresConfirmation(),
+                Tables\Actions\EditAction::make(),
                 Tables\Actions\DeleteAction::make(),
                 Tables\Actions\ForceDeleteAction::make(),
                 Tables\Actions\RestoreAction::make(),
@@ -171,7 +171,8 @@ class EmployeeResource extends Resource
                 FilamentExportBulkAction::make('export')
                 ->disableAdditionalColumns()
                 ->fileNameFieldLabel('Nom de fichier')
-                ->filterColumnsFieldLabel('Filtrer les colonnes'),
+                ->filterColumnsFieldLabel('Filtrer les colonnes')
+                ->pageOrientationFieldLabel('Page Orientation'),
                 Tables\Actions\DeleteBulkAction::make(),
                 Tables\Actions\ForceDeleteBulkAction::make(),
                 Tables\Actions\RestoreBulkAction::make(),

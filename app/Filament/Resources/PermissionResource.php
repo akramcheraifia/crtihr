@@ -51,7 +51,8 @@ class PermissionResource extends Resource
                 //
             ])
             ->actions([
-                Tables\Actions\EditAction::make(),
+                Tables\Actions\EditAction::make()
+                ->modalHeading('Modifier la permission'),
                 Tables\Actions\DeleteAction::make(),
             ])
             ->bulkActions([

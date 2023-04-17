@@ -11,6 +11,7 @@ class EditEmployee extends EditRecord
     protected static string $resource = EmployeeResource::class;
     protected static ?string $title = 'Modifier un fonctionnaire';
 
+
     protected function getActions(): array
     {
         return [

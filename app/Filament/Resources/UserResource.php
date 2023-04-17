@@ -25,7 +25,6 @@ class UserResource extends Resource
 {
     protected static ?string $model = User::class;
 
-    protected static ?string $navigationIcon = 'heroicon-o-user-group';
     protected static ?string $navigationGroup = 'Paramètres';
 
 
@@ -87,7 +86,8 @@ class UserResource extends Resource
                 //
             ])
             ->actions([
-                Tables\Actions\EditAction::make(),
+                Tables\Actions\EditAction::make()
+                ->modalHeading(fn ($record) =>auth()->user()->hasRole('Admin') ? "Modifier l'utilisateur {$record->name}" : "Modifier mon compte"),
                 Tables\Actions\DeleteAction::make(),
             ])
             ->bulkActions([
@@ -108,11 +108,7 @@ class UserResource extends Resource
             'index' => Pages\ListUsers::route('/'),
             'create' => Pages\CreateUser::route('/create'),        ];
     }
-    // public function getQuery()
-    // {
-    //     return static::getModel()::query()
-    //         ->where('id', auth()->id());
-    // }
+
     public static function getEloquentQuery(): Builder
 {
     if (auth()->user()->hasRole('Admin')) {
@@ -125,5 +121,9 @@ class UserResource extends Resource
 public static function getNavigationLabel(): string
 {
     return auth()->user()->hasRole('Admin') ? 'Utilisateurs' : 'Mon Compte';
+}
+public static function getNavigationIcon(): string
+{
+    return auth()->user()->hasRole('Admin') ? 'heroicon-o-user-group' : 'heroicon-o-user';
 }
 }

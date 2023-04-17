@@ -53,7 +53,8 @@ class GradeResource extends Resource
                 //
             ])
             ->actions([
-                Tables\Actions\EditAction::make(),
+                Tables\Actions\EditAction::make()
+                    ->modalHeading('Modifier Le Grade'),
                 Tables\Actions\DeleteAction::make(),
             ])
             ->bulkActions([
