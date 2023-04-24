@@ -10,7 +10,6 @@ class ListEmployees extends ListRecords
 {
     protected static string $resource = EmployeeResource::class;
     protected static ?string $title = 'Fonctionnaires';
-
     protected function getActions(): array
     {
         return [

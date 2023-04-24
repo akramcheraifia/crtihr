@@ -21,9 +21,11 @@ use Filament\Tables;
 use Filament\Tables\Columns\BadgeColumn;
 use Filament\Tables\Columns\SpatieMediaLibraryImageColumn;
 use Filament\Tables\Columns\TextColumn;
+use Filament\Tables\Filters\Layout;
 use Filament\Tables\Filters\SelectFilter;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\SoftDeletingScope;
+use Webbingbrasil\FilamentAdvancedFilter\Filters\TextFilter;
 class EmployeeResource extends Resource
 {
     protected static ?string $model = Employee::class;
@@ -143,7 +145,7 @@ class EmployeeResource extends Resource
                 TextColumn::make('date_naissance')->dateTime()->toggleable(isToggledHiddenByDefault: true),
                 TextColumn::make('date_recrutement')->dateTime()->toggleable(isToggledHiddenByDefault: true),
                 TextColumn::make('created_at')->dateTime()->toggleable(isToggledHiddenByDefault: true)->label('Créé le'),
-
+                TextColumn::make('updated_at')->dateTime()->toggleable(isToggledHiddenByDefault: true)->label('Mis à jour le'),
             ])
             ->filters([
                 Tables\Filters\TrashedFilter::make(),
@@ -157,8 +159,7 @@ class EmployeeResource extends Resource
                     'Inactive' => 'Inactive',
                     'mis en disponibilité' => 'Mis en disponibilité',
                     'détacher' => 'Détacher',
-                ])
-
+                ]),
             ])
             ->actions([
                 Tables\Actions\ViewAction::make(),
@@ -183,8 +184,7 @@ class EmployeeResource extends Resource
                 FilamentExportHeaderAction::make('export')
                 ->disableAdditionalColumns()
                 ->fileNameFieldLabel('Nom de fichier')
-                ->filterColumnsFieldLabel('Filtrer les colonnes')
-
+                ->filterColumnsFieldLabel('Filtrer les colonnes'),
             ]);
     }
 
