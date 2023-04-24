@@ -7,6 +7,7 @@
     "require": {
         "php": "^8.1",
         "alperenersoy/filament-export": "^0.2.8",
+        "bezhansalleh/filament-language-switch": "^1.0",
         "blade-ui-kit/blade-heroicons": "^1.4",
         "filament/filament": "^2.0",
         "filament/spatie-laravel-media-library-plugin": "^2.0",
