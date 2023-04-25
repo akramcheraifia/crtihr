@@ -52,7 +52,7 @@ class EmployeePolicy
      */
     public function update(User $user, Employee $employee): bool
     {
-        if ($user->hasPermissionTo('Modifier')){
+        if ($user->hasPermissionTo('Modifier')&& $user->hasPermissionTo('Créer')){
             return true;
         }
         else {

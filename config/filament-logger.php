@@ -11,7 +11,7 @@ return [
         'logger' => \Z3d0X\FilamentLogger\Loggers\ResourceLogger::class,
         'color' => 'success',
         'exclude' => [
-            //App\Filament\Resources\UserResource::class,
+            App\Filament\Resources\UserResource::class,
             App\Filament\Resources\RoleResource::class,
             App\Filament\Resources\PermissionResource::class,
             App\Filament\Resources\FiliereResource::class,
@@ -22,7 +22,7 @@ return [
     ],
 
     'access' => [
-        'enabled' => true,
+        'enabled' => false,
         'logger' => \Z3d0X\FilamentLogger\Loggers\AccessLogger::class,
         'color' => 'danger',
         'log_name' => 'Access',
