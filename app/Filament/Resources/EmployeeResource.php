@@ -5,6 +5,7 @@ namespace App\Filament\Resources;
 use AlperenErsoy\FilamentExport\Actions\FilamentExportBulkAction;
 use AlperenErsoy\FilamentExport\Actions\FilamentExportHeaderAction;
 use App\Filament\Resources\EmployeeResource\Pages;
+use App\Filament\Resources\EmployeeResource\Widgets\StatsOverview;
 use App\Models\Corp;
 use App\Models\Employee;
 use App\Models\Filiere;
@@ -216,5 +217,11 @@ public static function getEloquentQuery(): Builder
         ->withoutGlobalScopes([
             SoftDeletingScope::class,
         ]);
+}
+public static function getWidgets(): array
+{
+    return [
+        StatsOverview::class,
+    ];
 }
 }
