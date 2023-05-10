@@ -21,7 +21,7 @@ The following features are included in the CRTIHR employee management system:
 
 The application is built with the following technologies:
 
-* Front-end: HTML, CSS, JavaScript,Tailwind
+* Front-end: Vite ,Livewire,Tailwind
 * Back-end: Laravel,Filament php
 * Database: MySQl
 
@@ -31,12 +31,15 @@ To use the application, please follow the steps below:
 
 1. Clone the repository: `git clone https://github.com/akramcheraifia/crtihr.git`
 2. Install dependencies: `composer install`
-3. Set up the database details in .env file
-4. Run migrations `php artisan migrate`
+3. Set up the database details in .env file (make sure the APP_URL is set to : `http://localhost:8000`)
+4. Run migrations and seed `php artisan migrate --seed`
 5. Link the storage `php artisan storage:link`
-6. Create a user `php artisan make:filament-user`
+6. Run `npm install`
+7. Then run  `npm run build`
 7. Start the server: `php artisan serve`
 8. Access the application at `http://localhost:8000`
+9. Login with this credentials : email: `Admin@example.com` , password : `password`
+
 
 ## Contributing
 
@@ -51,13 +54,13 @@ This project is licensed under the MIT License. See the LICENSE file for details
 
 In the future, we plan to add the following features to CRTIHR:
 
-* Roles
+* Roles (Added)
 * The ability to generate reports
 * Integration with other HR systems and tools
 * Improved user interface and user experience
 
 ## Contact
 
-If you have any questions or feedback about CRTIHR, please feel free to contact me at [akram.cheraifia@gmail.com] or through [https://www.linkedin.com/in/akram-cheraifia-a80bb826b].
+If you have any questions or feedback about CRTIHR, please feel free to contact us at [akram.cheraifia@gmail.com]  [arariyed2002@gmail.com]
 
 Thank you ...
