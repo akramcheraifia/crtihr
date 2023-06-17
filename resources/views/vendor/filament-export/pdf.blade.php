@@ -31,10 +31,13 @@
             overflow: hidden;
             padding: 10px 5px;
             word-break: normal;
+
         }
 
         table th {
             font-weight: normal;
+            background-color: #04AA6D;
+            color: white;
         }
 
     </style>

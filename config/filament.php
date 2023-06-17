@@ -141,6 +141,8 @@ return [
         'register' => [
             Widgets\AccountWidget::class,
             App\Filament\Resources\EmployeeResource\Widgets\StatsOverview::class,
+            App\Filament\Resources\EmployeeResource\Widgets\EmployenumChart::class,
+            App\Filament\Resources\EmployeeResource\Widgets\typeChart::class,
         ],
     ],
 
