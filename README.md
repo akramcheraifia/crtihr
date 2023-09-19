@@ -64,3 +64,11 @@ In the future, we plan to add the following features to CRTIHR:
 If you have any questions or feedback about CRTIHR, please feel free to contact us at [akram.cheraifia@gmail.com]  [arariyed2002@gmail.com]
 
 Thank you ...
+
+## Images
+<image src="images/thefour.png"></image>
+<image src="images/thethree.png"></image>
+<image src="images/image16.png"></image>
+<image src="images/thetwo.png"></image>
+<image src="images/theone.png"></image>
+<image src="images/image26.png"></image>
