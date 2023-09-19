@@ -70,5 +70,5 @@ Thank you ...
 <image src="images/thethree.png"></image>
 <image src="images/image16.png"></image>
 <image src="images/thetwo.png"></image>
-<image src="images/theone.png"></image>
+<image src="images/image19.png"></image>
 <image src="images/image26.png"></image>
